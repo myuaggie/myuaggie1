@@ -1,0 +1,131 @@
+#include <std_lib_facilities.h>
+struct Node{
+	int value;
+	Node * next;
+	Node(int v); 
+};
+Node::Node(int v):value(v), next(0) {};
+
+class  List {
+public:
+	Node * head;
+	int size;
+	List(const vector<int> & v);
+	List(int * array, int array_size);
+	int length() const { return size; }
+	bool insert(int pos, int value);
+	int find(int value);
+	int remove(int value);
+	bool split(int pos, List & new_list);
+	void combine(List & append_list);
+	void printAll();
+};
+
+List::List(const vector<int> & v) {
+	size= v.size();
+	head =new Node(v[0]);
+	Node * t=head;
+	Node * s;
+	for (int i = 1; i < size; i++) {
+		s = t;
+		t = new Node(v[i]);
+		s->next = t;
+	}
+}
+
+List::List(int * array, int array_size) {
+	size = array_size;
+	head = new Node(array[0]);
+	Node * t = head;
+	Node * s;
+	for (int i = 1; i < size; i++) {
+		s = t;
+		t = new Node(array[i]);
+		s->next = t;
+	}
+}
+
+bool List::insert(int pos, int value) {
+	if (pos > size) return false;
+	Node * t = head;
+	Node * n = new Node(value);
+	for (int i = 0; i < pos; i++) {
+		head = head->next;
+	}
+	Node *o = head->next;
+	head->next = n;
+	n->next = o;
+	head = t;
+	size += 1;
+	return true;
+}
+
+int List::find(int value){
+	Node * t = head;
+	for (int i = 0; i < size; i++) {
+		if (head->value == value) {
+			head = t;
+			return i;
+		}
+		head=head->next;
+	}
+	head = t;
+	return -1;
+}
+int List::remove(int value) {
+	int n = 0;
+	Node * t = head;
+	Node * o;
+	Node * s= head;
+	for (int i = 0; i < size; i++) {
+		if (head->value == value) {
+			n++;
+			if (head == t) {
+				t = head->next; continue;
+			}
+			o = head->next;
+			s->next = o;
+		
+			head = o;
+			continue;
+		}
+		s = head;
+		head=head->next;
+	}
+	size = size - n;
+	head = t;
+	return n;
+}
+
+bool List::split(int pos, List & new_list) {
+	Node * t = head;
+	if (pos >= size) return false;
+	for (int i = 0; i < pos; i++) {
+		head = head->next;
+	}
+
+	new_list.head = head->next;
+	new_list.size = size - pos - 1;
+	head->next = 0;
+	size = pos + 1;
+	head = t;
+	return true;
+}
+
+void List::combine(List & append_list) {
+	Node * t = head;
+	for (int i = 0; i < size-1; i++) {
+		head = head->next;
+	}
+	size = size + append_list.size;
+	head->next = append_list.head;
+	head = t;
+}
+void List::printAll() {
+	Node * t = head;
+	for (int i = 0; i < size; i++) {
+		cout << head->value << endl;
+		head = head->next;
+	}
+	head = t;
+}
