@@ -58,6 +58,14 @@ int main() {
 	for (int i = member.size() - 1; i > member.size() - 11; i--) { //print top 10
 		cout << member[i] << ":" << m[member[i]] << endl;
 	}
+	string suffix:
+	cout << "input the suffix:";
+	cin >> suffix;
+	while (cin) {
+		cout << m[suffix] << endl;
+		cout << "input the suffix:";
+		cin >> suffix;
+	}
 	cin.get();
 	cin.get();
 
