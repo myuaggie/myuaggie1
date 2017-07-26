@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>英雄联盟LPL战区比赛数据</title>
+</head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="find.js"></script>
+
+<body>
+
+<svg id="c" width="1500" height="1000" version="1.1"  xmlns="http://www.w3.org/2000/svg">
+
+    <script type="text/javascript">
+        function pop_(evt,str){
+            var xx=evt.clientX;
+            var yy=evt.clientY;
+            var x_=20;
+            var y_=20;
+            var t=document.getElementById(str);
+            t.setAttribute("x",xx+x_);
+            t.setAttribute("y",yy+y_);
+            t.setAttribute("opacity","1");
+        }
+        function pop(evt,str){
+            var xx=evt.clientX;
+            var yy=evt.clientY;
+            var x_=20;
+            var y_=20;
+            var t=document.getElementById(str);
+            t.setAttribute("x",xx+x_);
+            t.setAttribute("y",yy+y_);
+            t.setAttribute("opacity","1");
+            t=evt.target;
+            t.setAttribute("fill","gray");
+            t.setAttribute("fill-opacity","0.5");
+            var c=t.getAttribute("stroke");
+            if (c!="red") t.setAttribute("stroke","black");
+
+        }
+        function unpop_(str){
+            var t=document.getElementById(str);
+            t.setAttribute("opacity","0");
+        }
+        function unpop(evt,str){
+            var t=document.getElementById(str);
+            t.setAttribute("opacity","0");
+            t=evt.target;
+            t.setAttribute("fill","none");
+            var c=t.getAttribute("stroke");
+            if (c!="red") t.setAttribute("stroke","#DB4D6D");
+
+        }
+
+        function hide(){
+            var t=document.getElementById("con2");
+            t.setAttribute("opacity","0");
+            t=document.getElementById("con3");
+            t.setAttribute("opacity","0");
+            t=document.getElementById("con4");
+            t.setAttribute("opacity","0");
+            t=document.getElementById("con5");
+            t.setAttribute("opacity","0");
+            t=document.getElementById("con6");
+            t.setAttribute("opacity","0");
+            t=document.getElementById("con7");
+            t.setAttribute("opacity","0");
+        }
+
+        function fk(str){
+            var e=document.getElementById("cc");
+            e.setAttribute("fill-opacity","1");
+            e= document.getElementById("cc1");
+            e.setAttribute("stroke-opacity","1");
+            e= document.getElementById("cc2");
+            e.setAttribute("stroke-opacity","1");
+            e= document.getElementById("cc3");
+            e.setAttribute("stroke-opacity","1");
+            e= document.getElementById("cc4");
+            e.setAttribute("stroke-opacity","1");
+            e= document.getElementById("cc5");
+            e.setAttribute("stroke-opacity","1");
+            e=document.getElementById("l1");
+            e.setAttribute("stroke-opacity","1");
+            e=document.getElementById("l2");
+            e.setAttribute("stroke-opacity","1");
+            e=document.getElementById("l3");
+            e.setAttribute("stroke-opacity","1");
+            e=document.getElementById("l4");
+            e.setAttribute("stroke-opacity","1");
+            e=document.getElementById("st1");
+            e.setAttribute("opacity","1");
+            e=document.getElementById("st2");
+            e.setAttribute("opacity","1");
+            e=document.getElementById("st3");
+            e.setAttribute("opacity","1");
+            e=document.getElementById("st4");
+            e.setAttribute("opacity","1");
+            e=document.getElementById("st5");
+            e.setAttribute("opacity","1");
+            e=document.getElementById("st6");
+            e.setAttribute("opacity","1");
+            e=document.getElementById("st7");
+            e.setAttribute("opacity","1");
+            e=document.getElementById("st8");
+            e.setAttribute("opacity","1");
+            find(str);
+
+        }
+
+        function all_(str){
+            var e=document.getElementById("at1");
+            e.setAttribute("opacity","0");
+            e=document.getElementById("at2");
+            e.setAttribute("opacity","0");
+            e=document.getElementById("at3");
+            e.setAttribute("opacity","0");
+            e=document.getElementById("at4");
+            e.setAttribute("opacity","0");
+            e=document.getElementById("at5");
+            e.setAttribute("opacity","0");
+            e=document.getElementById("i_we");
+            e.setAttribute("opacity","0");
+            e=document.getElementById(str);
+            e.setAttribute("opacity","1");
+            var s=e.innerHTML;
+            if (s.indexOf("WE")!=-1){
+                e=document.getElementById("i_we");
+                e.setAttribute("opacity","1");
+            }
+        }
+
+    </script>
+    <circle id="c8" cx="500" cy="500" r="430" fill="none"
+            stroke-width="20" stroke="#D0104C" onmousedown="fk('2014LPL春季赛')" onmouseover="pop_(evt,'t8')" onmouseout="unpop_('t8')" />
+    <circle id="c7" cx="500" cy="500" r="400" fill="none"
+            stroke-width="20" stroke="#DB4D6D" onmousedown="fk('2014LPL夏季赛')" onmouseover="pop_(evt,'t7')" onmouseout="unpop_('t7')" />
+    <circle id="c6" cx="500" cy="500" r="370" fill="none"
+            stroke-width="20" stroke="#E87A90" onmousedown="fk('2015LPL春季赛')" onmouseover="pop_(evt,'t6')" onmouseout="unpop_('t6')"/>
+    <circle id="c5" cx="500" cy="500" r="340" fill="none"
+            stroke-width="20" stroke="#F4A7B9" onmousedown="fk('2015LPL夏季赛')" onmouseover="pop_(evt,'t5')" onmouseout="unpop_('t5')"/>
+    <circle id="c4" cx="500" cy="500" r="310" fill="none"
+            stroke-width="20" stroke="#F8C3CD" onmousedown="fk('2016LPL春季赛')" onmouseover="pop_(evt,'t4')" onmouseout="unpop_('t4')"/>
+    <circle id="c3" cx="500" cy="500" r="280" fill="none"
+            stroke-width="20" stroke="#F596AA" onmousedown="fk('2016LPL夏季赛')" onmouseover="pop_(evt,'t3')" onmouseout="unpop_('t3')"/>
+    <circle id="c2" cx="500" cy="500" r="250" fill="none"
+            stroke-width="20" stroke="#DC9FB4" onmousedown="fk('2017LPL春季赛')" onmouseover="pop_(evt,'t2')" onmouseout="unpop_('t2')"/>
+    <circle id="c1" cx="500" cy="500" r="220" fill="none"
+            stroke-width="20" stroke="#E16B8C" onmousedown="fk('2017LPL夏季赛')" onmouseover="pop_(evt,'t1')" onmouseout="unpop_('t1')"/>
+    <circle id="cc" cx="500" cy="500" r="190" fill="#FEDFE1" stroke="none" fill-opacity="0"/>
+    <circle id="cc1" cx="500" cy="500" r="160" fill="none"
+            stroke-width="3" stroke="#F4A7B9" stroke-dasharray="5,5" stroke-opacity="0" />
+    <circle id="cc2" cx="500" cy="500" r="130" fill="none"
+            stroke-width="3" stroke="#F4A7B9" stroke-dasharray="5,5" stroke-opacity="0"/>
+    <circle id="cc3" cx="500" cy="500" r="100" fill="none"
+            stroke-width="3" stroke="#F4A7B9" stroke-dasharray="5,5" stroke-opacity="0"/>
+    <circle id="cc4" cx="500" cy="500" r="70" fill="none"
+            stroke-width="3" stroke="#F4A7B9" stroke-dasharray="5,5" stroke-opacity="0"/>
+    <circle id="cc5" cx="500" cy="500" r="40" fill="none"
+            stroke-width="3" stroke="#F4A7B9" stroke-dasharray="5,5" stroke-opacity="0"/>
+    <line id="l1" x1="500" y1="340" x2="500" y2="660" stroke="#F4A7B9" stroke-width="3" stroke-dasharray="5,5" stroke-opacity="0"/>
+    <line id="l2" x1="340" y1="500" x2="660" y2="500" stroke="#F4A7B9" stroke-width="3" stroke-dasharray="5,5" stroke-opacity="0"/>
+    <line id="l3" x1="387" y1="387" x2="613" y2="613" stroke="#F4A7B9" stroke-width="3" stroke-dasharray="5,5" stroke-opacity="0"/>
+    <line id="l4" x1="613" y1="387" x2="387" y2="613" stroke="#F4A7B9" stroke-width="3" stroke-dasharray="5,5" stroke-opacity="0"/>
+    <text id="t1" opacity="0" fill="black">2017LPL夏季赛</text>
+    <text id="t2" opacity="0" fill="black">2017LPL春季赛</text>
+    <text id="t3" opacity="0" fill="black">2016LPL夏季赛</text>
+    <text id="t4" opacity="0" fill="black">2016LPL春季赛</text>
+    <text id="t5" opacity="0" fill="black">2015LPL夏季赛</text>
+    <text id="t6" opacity="0" fill="black">2015LPL春季赛</text>
+    <text id="t7" opacity="0" fill="black">2014LPL夏季赛</text>
+    <text id="t8" opacity="0" fill="black">2014LPL春季赛</text>
+
+    <circle id="d1" cx="460" cy="500" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="d2" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="d3" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="d4" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="d5" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="d6" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="d7" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="d8" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <polygon id="dd" fill="none" stroke="#DB4D6D" stroke-opacity="0" stroke-width="3"/>
+    <text id="dt1" opacity="0" fill="black">1st</text>
+    <text id="dt2" opacity="0" fill="black"></text>
+    <text id="dt3" opacity="0" fill="black"></text>
+    <text id="dt4" opacity="0" fill="black"></text>
+    <text id="dt5" opacity="0" fill="black"></text>
+    <text id="dt6" opacity="0" fill="black"></text>
+    <text id="dt7" opacity="0" fill="black"></text>
+    <text id="dt8" opacity="0" fill="black"></text>
+    <text id="ddt" opacity="0" fill="black"></text>
+
+    <circle id="e1" cx="430" cy="500" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="e2" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="e3" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="e4" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="e5" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="e6" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="e7" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="e8" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <polygon id="ee" fill="none" stroke="#DB4D6D" stroke-opacity="0" stroke-width="3"/>
+    <text id="et1" opacity="0" fill="black">2nd</text>
+    <text id="et2" opacity="0" fill="black"></text>
+    <text id="et3" opacity="0" fill="black"></text>
+    <text id="et4" opacity="0" fill="black"></text>
+    <text id="et5" opacity="0" fill="black"></text>
+    <text id="et6" opacity="0" fill="black"></text>
+    <text id="et7" opacity="0" fill="black"></text>
+    <text id="et8" opacity="0" fill="black"></text>
+    <text id="eet" opacity="0" fill="black"></text>
+
+    <circle id="f1" cx="400" cy="500" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="f2" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="f3" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="f4" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="f5" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="f6" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="f7" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="f8" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <polygon id="ff" fill="none" stroke="#DB4D6D" stroke-opacity="0" stroke-width="3"/>
+    <text id="ft1" opacity="0" fill="black">3rd</text>
+    <text id="ft2" opacity="0" fill="black"></text>
+    <text id="ft3" opacity="0" fill="black"></text>
+    <text id="ft4" opacity="0" fill="black"></text>
+    <text id="ft5" opacity="0" fill="black"></text>
+    <text id="ft6" opacity="0" fill="black"></text>
+    <text id="ft7" opacity="0" fill="black"></text>
+    <text id="ft8" opacity="0" fill="black"></text>
+    <text id="fft" opacity="0" fill="black"></text>
+
+    <circle id="g1" cx="370" cy="500" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="g2" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="g3" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="g4" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="g5" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="g6" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="g7" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="g8" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <polygon id="gg" fill="none" stroke="#DB4D6D" stroke-opacity="0" stroke-width="3"/>
+    <text id="gt1" opacity="0" fill="black">4th</text>
+    <text id="gt2" opacity="0" fill="black"></text>
+    <text id="gt3" opacity="0" fill="black"></text>
+    <text id="gt4" opacity="0" fill="black"></text>
+    <text id="gt5" opacity="0" fill="black"></text>
+    <text id="gt6" opacity="0" fill="black"></text>
+    <text id="gt7" opacity="0" fill="black"></text>
+    <text id="gt8" opacity="0" fill="black"></text>
+    <text id="ggt" opacity="0" fill="black"></text>
+
+    <circle id="h1" cx="340" cy="500" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="h2" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="h3" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="h4" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="h5" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="h6" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="h7" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <circle id="h8" r="5" fill="#DB4D6D" stroke="none" fill-opacity="0"/>
+    <polygon id="hh" fill="none" stroke="#DB4D6D" stroke-opacity="0" stroke-width="3"/>
+    <text id="ht1" opacity="0" fill="black">5th</text>
+    <text id="ht2" opacity="0" fill="black"></text>
+    <text id="ht3" opacity="0" fill="black"></text>
+    <text id="ht4" opacity="0" fill="black"></text>
+    <text id="ht5" opacity="0" fill="black"></text>
+    <text id="ht6" opacity="0" fill="black"></text>
+    <text id="ht7" opacity="0" fill="black"></text>
+    <text id="ht8" opacity="0" fill="black"></text>
+    <text id="hht" opacity="0" fill="black"></text>
+
+    <text id="st1" x="320" y="500" opacity="0" fill="black">rank</text>
+    <text id="st2" x="373" y="373" opacity="0" fill="black">KDA</text>
+    <text id="st3" x="470" y="325" opacity="0" fill="black">场均击杀</text>
+    <text id="st4" x="590" y="373" opacity="0" fill="black">场均死亡</text>
+    <text id="st5" x="630" y="500" opacity="0" fill="black">每分钟伤害</text>
+    <text id="st6" x="585" y="627" opacity="0" fill="black">场均时长(h)</text>
+    <text id="st7" x="470" y="680" opacity="0" fill="black">场均经济</text>
+    <text id="st8" x="373" y="627" opacity="0" fill="black">每分钟补刀</text>
+
+    <text id="at1" x="20" y="20" opacity="0" fill="black"></text>
+    <text id="at2" x="20" y="20" opacity="0" fill="black"></text>
+    <text id="at3" x="20" y="20" opacity="0" fill="black"></text>
+    <text id="at4" x="20" y="20" opacity="0" fill="black"></text>
+    <text id="at5" x="20" y="20" opacity="0" fill="black"></text>
+    <image id="i_we"xlink:href="17124241.png" x="20" y="100" width="100" height="100" opacity="0"></image>
+
+    <text id="con1" x="700" y="80" fill="black">本网页数据陈列为纪念在2017洲际系列赛中LPL战区获胜LCK登顶亚洲最强</text>
+    <text id="con2" x="900" y="110" fill="black">使用提示：</text>
+    <text id="con3" x="900" y="140" fill="black">鼠标移到圆环上时，会显示比赛名字</text>
+    <text id="con4" x="900" y="170" fill="black">点击圆环，查看赛程数据</text>
+    <text id="con5" x="900" y="200" fill="black">鼠标移到点和线上，查看各个数据</text>
+    <text id="con6" x="900" y="230" fill="black">鼠标点击连线，可查看该战队全部数据</text>
+    <text id="con7" x="900" y="260" fill="black" onclick="hide()">点击此处，永久隐藏提示</text>
+</svg>
+</body>
+</html>

@@ -351,19 +351,19 @@ Calculator_window::Calculator_window(Point xy, int x, int y, const string& title
 	attach(in_4);
 	attach(out_1);
 	attach(out_2);
-}
+}//set all the button
 
 void Calculator_window::input(string i) {
-	if (i == "del")
+	if (i == "del") //function:del
 	{
 		if (operation != ">") {
-			if (operation.substr(operation.size() - 1, 1) != " ") {
+			if (operation.substr(operation.size() - 1, 1) != " ") { //delete space
 				inputstream >> ch_del;
 				operation = operation.substr(0, operation.size() - 1);
 				out_1.put(operation);
 				return;
 			}
-			else {
+			else { 
 				inputstream >> ch_del;
 				operation = operation.substr(0, operation.size() - 1);
 				inputstream << operation.substr(operation.size() - 1, 1);
@@ -371,14 +371,14 @@ void Calculator_window::input(string i) {
 				return;
 			}
 		}
-		else {
+		else {  //can't delete ">"
 			operation = ">";
 			out_1.put(operation);
 			return;
 		}
 	}
 	inputstream << i;
-	if (i == "ac") {
+	if (i == "ac") {   //function:ac
 		operation = ">";
 		out_1.put(operation);
 		ts.ignore('c');
@@ -395,7 +395,7 @@ void Calculator_window::input(string i) {
 	if (i == ";") calculate();
 }
 
-void Calculator_window::draw_fx() {
+void Calculator_window::draw_fx() {   
 	ax3 = in_1.get_int();
 	if (ax3 == -999999)ax3 = 0;
 	bx2 = in_2.get_int();
