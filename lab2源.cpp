@@ -1,5 +1,5 @@
 //F1603702   516030910177
-//this is a calculator
+//this is a calculator.
 //calculate grammar is at the bottom
 /*function added:
 1. factorial
