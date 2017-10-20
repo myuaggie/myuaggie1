@@ -43,6 +43,86 @@ Gitflow工作流，Forking工作流。   （高级工作流）
 一个开发者开发功能需要帮助时，要做的就是发起一个Pull Request，相关的人就会自动收到通知，在相关的提交旁边能看到需要帮助解决的问题。
 
 ## 3.0 如何使用git工作流？
-下文将以高级工作流gitflow为例具体解释工作流的使用过程。
+下文将以高级工作流gitflow为例具体解释工作流的使用过程。  
+
+![](https://raw.githubusercontent.com/myuaggie/myuaggie1/master/git%20workflow/picture/gitflow.png)  
+
+Gitflow工作流为不同的分支分配一个很明确的角色，并定义分支之间如何和什么时候进行交互。
+Gitflow工作流仍然用中央仓库作为所有开发者的交互中心。和其它的工作流一样，开发者在本地工作并push分支到要中央仓库中。
+### 3.1 develop分支
+相对使用仅有的一个master分支，Gitflow工作流使用2个分支来记录项目的历史。**master分支存储了正式发布的历史，而develop分支作为功能的集成分支。**
+这样也方便master分支上的所有提交分配一个**版本号**。  
+
+![](https://raw.githubusercontent.com/myuaggie/myuaggie1/master/git%20workflow/picture/gitflow_develop.png)
+
+    git branch develop
+    git push -u origin develop
+    //创建
+    git clone ssh://user@host/path/to/repo.git  //clone
+    git checkout -b develop origin/develop  //跟踪
 
 
+### 3.2 feature分支
+feature分支使用develop分支作为父分支，当新功能完成时，合并回develop分支。
+新功能提交时feature分支不直接与master分支交互。  
+
+![创建feature分支](https://raw.githubusercontent.com/myuaggie/myuaggie1/master/git%20workflow/picture/gitflow_function.png)  （创建feature分支）
+
+    git checkout -b some-feature develop
+    //创建
+    git status
+    git add <some-file>
+    git commit
+    //暂存
+  
+![feature分支合并回develop分支](https://raw.githubusercontent.com/myuaggie/myuaggie1/master/git%20workflow/picture/gitflow_function_finish.png)（feature分支合并回develop分支）
+
+    git pull origin develop
+    git checkout develop
+    git merge some-feature
+    git push
+    git branch -d some-feature
+### 3.3 release分支
+一旦develop分支上有了做一次发布的足够功能，就从develop分支上fork一个发布分支。
+新建的分支用于开始发布循环，所以从这个时间点开始之后新的功能不能再加到这个分支上。
+这个分支只应该做**Bug修复、文档生成和其它面向发布任务**。
+一旦对外发布的工作都完成了，发布分支合并到master分支并分配一个版本号打好Tag。
+另外，这些从新建发布分支以来的做的**修改要合并回develop分支**。  
+
+![创建release分支](https://raw.githubusercontent.com/myuaggie/myuaggie1/master/git%20workflow/picture/gitflow_release.png)  (创建release分支）  
+
+    git checkout -b release-0.1 develop
+
+![与master和develop分别合并](https://raw.githubusercontent.com/myuaggie/myuaggie1/master/git%20workflow/picture/gitflow_master.png)  (与master和develop分别合并)
+
+    git checkout master
+    git merge release-0.1
+    git push
+    //与master合并
+    git checkout develop
+    git merge release-0.1
+    git push
+    //与develop合并
+    git branch -d release-0.1  //删除release分支
+    git tag -a 0.1 -m "Initial public release" master
+    git push --tags 
+    //加tag
+
+
+### 3.4 维护分支
+维护分支或说是**热修复（hotfix）分支**用于生成快速给产品发布版本（production releases）打补丁，这是唯一可以直接从master分支fork出来的分支。
+修复完成，修改应该马上**合并回master分支和develop分支**，master分支应该用新的版本号打好Tag。
+
+![](https://raw.githubusercontent.com/myuaggie/myuaggie1/master/git%20workflow/picture/gitflow_bug.png)
+
+    git checkout -b issue-#001 master //创建
+    # Fix the bug
+    git checkout master
+    git merge issue-#001
+    git push
+    //与master合并
+    git checkout develop
+    git merge issue-#001
+    git push
+    //与develop合并
+    git branch -d issue-#001 //删除维护分支
