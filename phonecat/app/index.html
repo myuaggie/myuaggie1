@@ -7,16 +7,17 @@
   <link rel="stylesheet" href="app.css" />
   <script src="bower_components/angular/angular.js"></script>
   <script src="app.js"></script>
+  <script src="phone-list.component.js"></script>
 
 </head>
-<body ng-controller="PhoneListController">
+<body>
 
-<ul>
-  <li ng-repeat="phone in phones">
-    <span>{{phone.name}}</span>
-    <p>{{phone.snippet}}</p>
-  </li>
-</ul>
 
+
+
+<table>
+  <tr ng_repeat="i in [0,1,2,3,4,5,6,7]"><td ng_repeat="j in [0,1,2,3,4,5,6,7]">{{i+j}}</td></tr>
+</table>
+<phone-list></phone-list>
 </body>
 </html>
