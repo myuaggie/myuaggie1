@@ -2,21 +2,22 @@
 describe('phoneList',function(){
     beforeEach(module('phoneList'));
     describe('PhoneListController', function() {
-        var ctrl;
-        beforeEach(inject(function($componentController){
+        var ctrl,$httpBackend;
+        beforeEach(inject(function($componentController,_$httpBackend_){
             ctrl=$componentController('phoneList');
+            $httpBackend=_$httpBackend_;
+            $httpBackend.expectGet('phone/phones.json').respond([{name: 'Nexus S'}, {name: 'Motorola DROID'}]);
         }));
-        it('should create a `phones` model with 3 phones', function(){
+        it('should create a `phones` property with 2 phones fetched with `$http`', function() {
+            expect(ctrl.phones).toBeUndefined();
 
-        expect(ctrl.phones.length).toBe(3);
-
-          });
+            $httpBackend.flush();
+            expect(ctrl.phones).toEqual([{name: 'Nexus S'}, {name: 'Motorola DROID'}]);
+        });
         it('should set a default value for the `orderProp` model',function(){
             expect(ctrl.orderProp).toBe('age');
         });
-        it('should set a value for the `name` model',function(){
-            expect(ctrl.name).toBe('world');
-        });
+
 
     });
 
